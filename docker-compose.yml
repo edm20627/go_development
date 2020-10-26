@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: ./docker/golang/Dockerfile
+    tty: true
+    environment:
+      - TZ=Japan
+    volumes:
+      - .:/go/src/app
+    ports:
+      - 8080:8080
+  #   depends_on:
+  #     - postgres
+  # postgres:
+  #   build:
+  #     context: .
+  #     dockerfile: ./docker/postgres/Dockerfile
+  #   environment:
+  #     POSTGRES_USER: user
+  #     POSTGRES_PASSWORD: password
+  #     POSTGRES_DB: app_db
+  #   volumes:
+  #     - ./docker/postgres/init/:/docker-entrypoint-initdb.d
+  #     - postgres-data:/var/lib/postgres
+  #   ports:
+  #     - 5432:5432
+
+# volumes:
+#   postgres-data:
+#     driver: local

@@ -1,0 +1,14 @@
+├── Makefile                        # ビルド定義のほかタスクランナー的にも利用される
+├── _tools                          # Go以外のシェルスクリプトなどが配置できる
+├── cmd                             # 実行バイナリ用のソースが配置される
+│   └── go_development              # package main　　　
+│       └── main.go
+├── go_development.go               # ソースコード
+├── go_devlopment_test.go           # テストコード
+├── internal                        # 外部から利用されたくないパッケージを配置する（主にOSSプロジェクトで利用）
+├── logger                          # 必要な場合サブディレクトリにサブパッケージを配置する
+│   └── logger.go                   # package logger
+├── testdata                        # fixtureなどテストデータを配置される
+├── type.go                         # typeを定義しているものなどはファイルを分けても良い
+├── type_test.go
+└── version.go
