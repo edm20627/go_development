@@ -3,56 +3,39 @@ package main
 import (
 	"flag"
 	"fmt"
-	"log"
+	"io"
 	"os"
-	"os/signal"
-	"syscall"
-	"time"
 )
 
-var version = "0.0.0"
+const (
+	ExitCodeOK int = iota
+	ExitCodeError
+	ExitCodeFileError
+)
 
-type MySignal struct {
-	message string
+var Version = "0.0.0"
+
+type CLI struct {
+	outStream, errStream io.Writer
 }
-
-func (s MySignal) String() string {
-	return s.message
-}
-
-func (s MySignal) Signal() {}
 
 func main() {
+	cli := &CLI{outStream: os.Stdout, errStream: os.Stderr}
+	os.Exit(cli.Run(os.Args))
+}
+
+func (c *CLI) Run(args []string) int {
+	os.Args = args // 簡易テスト用
 	var showVersion bool
 	flag.BoolVar(&showVersion, "v", false, "show version")
 	flag.BoolVar(&showVersion, "version", false, "show version")
 	flag.Parse()
 
 	if showVersion {
-		fmt.Println("version:", version)
-		return
-	}
-
-	log.Println("[info] Start")
-	trapSingals := []os.Signal{
-		syscall.SIGHUP,
-		syscall.SIGINT,
-		syscall.SIGTERM,
-		syscall.SIGQUIT}
-
-	sigCh := make(chan os.Signal, 1)
-
-	time.AfterFunc(5*time.Second, func() {
-		sigCh <- MySignal{"time out"}
-	})
-
-	signal.Notify(sigCh, trapSingals...)
-
-	sig := <-sigCh
-	switch s := sig.(type) {
-	case syscall.Signal:
-		log.Printf("[info] Got signal: %s(%d)", s, s)
-	case MySignal:
-		log.Printf("[info] %s", s)
+		fmt.Fprintf(c.outStream, "version: %s \n", Version)
+		return 0
+	} else {
+		fmt.Fprintln(c.errStream, "バージョンオプションがありません")
+		return 1
 	}
 }
