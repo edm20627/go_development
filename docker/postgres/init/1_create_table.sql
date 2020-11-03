@@ -1,5 +1,7 @@
-create table posts (
-  id      serial primary key,
-  content text,
-  author  varchar(255)
+DROP TABLE IF EXISTS users;
+
+CREATE TABLE users (
+  id   serial primary key,
+  name text not null,
+  age  integer not null
 );

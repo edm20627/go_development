@@ -5,9 +5,8 @@ WORKDIR /go/src/app
 ENV GO111MODULE=on
 
 RUN apt-get update -qq && apt-get install -y vim git
-RUN GO111MODULE=off go get github.com/pilu/fresh
 RUN GO111MODULE=off go get\
-      go get github.com/pilu/fresh\
+      github.com/pilu/fresh\
       github.com/motemen/gore/cmd/gore\
       github.com/mdempsky/gocode\
       github.com/k0kubun/pp\
