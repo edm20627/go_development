@@ -17,4 +17,4 @@ RUN GO111MODULE=off go get\
 
 EXPOSE 8080
 
-# ENTRYPOINT [ "fresh" ]
+ENTRYPOINT [ "fresh" ]
