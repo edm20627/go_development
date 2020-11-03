@@ -3,6 +3,8 @@ module github.com/edm20627/go_development
 go 1.15
 
 require (
+	github.com/go-gorp/gorp v2.2.0+incompatible
+	github.com/lib/pq v1.8.0
 	github.com/mattn/go-isatty v0.0.12
 	github.com/mitchellh/cli v1.1.2 // indirect
 	github.com/sirupsen/logrus v1.7.0
